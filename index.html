@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+    <!-- WWW stránky Kolosalon, doplnění o JavaScript
+
+Stránka Půjčovna - objednávka
+Stránka s objednávkovým listem bude obsahovat: 
+•	4 checkboxy pro výběr konkrétního typu kola se základními cenami, 
+o	horské 500 Kč/den
+o	dětské  200 Kč/den
+o	silniční 1 500 Kč/den
+o	gravel  2 500 Kč/den
+•	Vedle každého checkboxu pak bude malý input pro vložení počtu vybraných kusů. (rodina: tatínek chce horské, syn teenager chce zkusit gravel bike a podobně)
+•	Dále ve formuláři bude roletové menu (select) pro výběr počtu dnů zápůjčky (stačí 4 hodnoty, např. 5 dnů, týden, 14 dní a měsíc). 
+•	Potom budou následovat tři radiobuttony: 
+o	cyklonosič střešní (+ 5 procent z celkové ceny zápůjčky navíc)
+o	cyklonosič na tažné zařízení (+ 10 procent z celkové ceny zápůjčky navíc)
+o	není třeba cyklonosič
+•	Ve spodní části stránky bude pole s tlačítkem pro výpočet celkové ceny zápůjčky podle všech výše vybraných parametrů. V poli umístěném pod ním bude uživatel moci zadat celkovou sumu, kterou je ochoten za zápůjčku zaplatit a v posledním poli bude uživateli oznámeno, zda se se svou částkou do výsledné ceny vešel či nikoliv. 
+•	Nakonec bude pole pro zadání kontaktního emailu, ve kterém si pohlídáte, aby nechyběl povinný znak zavináče (u JS stačí kontrola jen na @). Pokud nebude, formulář nepůjde tlačítkem „Odeslat“, které bude vespod formuláře, odeslat 
+•	Limit: screenshot do 9:30 (i s opravami!), JS limit do 12:30, zadání jQ bude ve 12:30, limit jQ 15:30.
+•	Neřešte až tak úpravu, jde o množství a typ prvků
+•	E-mail: jarmila.krupova@vsb.cz -->
+
+
+<style>
+
+</style>
+
+
+
+</head>
+
+<body>
+    <h2>Vyberte kola k zapůjčení</h2>
+
+    <form id="formularCheck">
+        <input type="checkbox" name="kolo[]" class="typ-kola" id="Horské" data-price="500" data-value="Horské">
+        <label for="Horské">Horské  </label><label for="pocet-horske">Počet kusů: </label><input type="number" id="pocet-horske" name="pocet[]" min="1" for="Horské" value="1"><br>
+        <input type="checkbox" name="kolo[]" class="typ-kola" id="Dětské" data-price="200" data-value="Dětské">
+        <label for="Dětské">Dětské  </label><label for="pocet-detske">Počet kusů: </label><input type="number" id="pocet-detske" name="pocet[]" min="1" value="1"><br>
+        <input type="checkbox" name="kolo[]" class="typ-kola" id="Silniční" data-price="1500" data-value="Silniční">
+        <label for="Silniční">Silniční  </label><label for="pocet-silnicni">Počet kusů: </label><input type="number" id="pocet-silnicni" name="pocet[]" min="1" value="1"><br>
+        <input type="checkbox" name="kolo[]" class="typ-kola" id="Gravel" data-price="2500" data-value="Gravel">
+        <label for="Gravel">Gravel  </label><label for="pocet-gravel">Počet kusů: </label><input type="number" id="pocet-gravel" name="pocet[]" min="1" value="1"><br>        
+      </form>
+
+    <h2>Na jak dlouho chcete vypůjčit kola?</h2>
+
+      <select id="VyberDny">
+        <option value="1">1 den</option>
+        <option value="7">7 dnů</option>
+        <option value="14">14 dní</option>
+        <option value="25">25 dní</option>
+      </select>
+
+      <form>
+        <h2>Vyberte příslušenství</h2>
+        <input type="radio" name="radio[]" class="typ-kola" id="cyklonosič-střešní" data-price="1.05" data-value="cyklonosič-střešní">
+        <label for="cyklonosič-střešní">cyklonosič střešní</label><br>
+        <input type="radio" name="radio[]" class="typ-kola" id="cyklonosič-na-tažné" data-price="1.10" data-value="cyklonosič-na-tažné">
+        <label for="cyklonosič-na-tažné">cyklonosič na tažné zařízení</label><br>
+        <input type="radio" name="radio[]" class="typ-kola" id="bez-cyklo" data-price="1" data-value="bez-cyklo">
+        <label for="bez-cyklo">bez</label><br>
+      </form>
+
+      <h2>Výpočet ceny</h2>
+      <button id="VypocitejCenu">Výpočet ceny</button><input type="text" name="VypocetCeny" class="VypocetCeny" id="VypocetCeny"><br>
+
+      
+      <h2>Zadej Email</h2>
+      <form>
+        <label for="email">Zadejte email:</label>
+        <input type="email" id="email" name="email">
+      </form>
+
+      <h2>Odhad ceny</h2>
+      <input type="number" name="OdhadCeny" class="OdhadCeny" id="OdhadCeny"><br>
+      <h2 id="VlezlDoCeny">Váš odhad byl</h2>
+      <h2>Odeslat objednávku</h2>
+      <button id="Odeslat">Odeslat</button>
+      <p id="stavPoslani"></p>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="scriptjg.js"></script>
+</body>
+</html>
