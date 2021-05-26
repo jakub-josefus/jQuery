@@ -49,21 +49,23 @@ $(document).ready(function() {
         VypocetBezPrislusenstvi()
         VypocetPrirazkaPrislusenstvi();
         OdhadCeny();
-        if (ValidaceEmailu()) {
+        if (ValidaceEmailu() && OdhadCeny()) {
             $('#stavPoslani').text("Posláno");
         }
         else{
-            $('#stavPoslani').text("Špatně vyplněný email znova");
+            $('#stavPoslani').text("Špatně vyplněný email nebo málo peněz");
         } 
     });
     
     function OdhadCeny() {
         var Typ = parseInt($('#OdhadCeny').val());
-        if ((CelkovaCena) < parseInt(Typ) ) {
+        if ((CelkovaCena) <= parseInt(Typ) ) {
             $('#VlezlDoCeny').text("Vlezl jste se do ceny ještě vám zbyde "+ (Typ-CelkovaCena));
+            return true;
         }
         else
-           $('#VlezlDoCeny').text("Nevlezl jste se do ceny o "+(CelkovaCena-Typ));   
+           $('#VlezlDoCeny').text("Nevlezl jste se do ceny o "+(CelkovaCena-Typ));
+           return false;   
     }
     
     function ValidaceEmailu() {
