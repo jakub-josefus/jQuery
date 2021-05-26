@@ -9,6 +9,11 @@ $(document).ready(function() {
     
 
     $("#VypocitejCenu").click(function(){
+        VypocetBezPrislusenstvi()
+        VypocetPrirazkaPrislusenstvi();
+    }); 
+
+    function VypocetBezPrislusenstvi() {
         PocetDnu = $('#VyberDny').val();
         Cena=0;
         Vysledek=0;  
@@ -19,8 +24,7 @@ $(document).ready(function() {
                 Vysledek+=cenaAPocetDnu*PocetKusuPole[i];
             }
         }
-        VypocetPrirazkaPrislusenstvi();
-    }); 
+    }
 
     function VypocetPrirazkaPrislusenstvi() {
         for (var i = 0; i < Prislusenstvi.length; i++) {
@@ -42,6 +46,8 @@ $(document).ready(function() {
 
 
     $("#Odeslat").click(function(){
+        VypocetBezPrislusenstvi()
+        VypocetPrirazkaPrislusenstvi();
         OdhadCeny();
         if (ValidaceEmailu()) {
             $('#stavPoslani').text("Posláno");
@@ -50,22 +56,14 @@ $(document).ready(function() {
             $('#stavPoslani').text("Špatně vyplněný email znova");
         } 
     });
-
-
     
     function OdhadCeny() {
         var Typ = parseInt($('#OdhadCeny').val());
-        console.log(Typ);
-        var rozmezi = parseInt(CelkovaCena*0.7);
-        console.log(rozmezi);
-        if (parseInt(CelkovaCena) < parseInt(Typ) ) {
-            $('#VlezlDoCeny').text("Váš odhad byl špatný");
+        if ((CelkovaCena) < parseInt(Typ) ) {
+            $('#VlezlDoCeny').text("Vlezl jste se do ceny ještě vám zbyde "+ (Typ-CelkovaCena));
         }
-        else if (parseInt(Typ) > rozmezi){
-            $('#VlezlDoCeny').text("Váš odhad byl DOBRÝ");
-        }else
-           $('#VlezlDoCeny').text("Váš odhad byl špatný");
-    
+        else
+           $('#VlezlDoCeny').text("Nevlezl jste se do ceny o "+(CelkovaCena-Typ));   
     }
     
     function ValidaceEmailu() {
